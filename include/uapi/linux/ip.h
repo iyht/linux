@@ -86,7 +86,16 @@
 
 struct iphdr {
 #if defined(__LITTLE_ENDIAN_BITFIELD)
-	__u8	ihl:4,
+/*
+  ihl: "the number of 4 byte-block in the ip header" which indicate the size of the ip header.
+  if the ihl = 7, in decimal, means that there is 7 4-byte blocks in the header, which means the total header length = 7 * 4 = 28 bytes.
+
+  some pp also call it "ihl is in 32-bit words", which is really means that "ihl represents 
+  how many number of 32-bit blocks"
+
+  the reason we need this because ip header is fixed lenght, since it has the "option" field.
+*/ 
+	__u8	ihl:4, 
 		version:4;
 #elif defined (__BIG_ENDIAN_BITFIELD)
 	__u8	version:4,
@@ -105,6 +114,7 @@ struct iphdr {
 		__be32	saddr;
 		__be32	daddr;
 	);
+	// the options locates at the memory that after the header
 	/*The options start here. */
 };
 
