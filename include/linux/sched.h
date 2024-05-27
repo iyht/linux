@@ -745,6 +745,20 @@ struct kmap_ctrl {
 #endif
 };
 
+/*
+	From the CPU perspetive, process, thread are the same. They are just the 
+	tast_struct, a scheduable task.
+
+	When a user start a process in the user space, there will be task_struct(kernel thread)
+	correspond to it by fork()(actually clone()), but the new task_struct is total copy of the 
+	"calling process"
+
+	When a user using something like pthread_create, a task_struct also created, the clone()
+	can create the share parts of its execution context with the calling process, 
+	such as the memory space, the table of file descriptors, and the table of signal 
+	handlers. (Note that on this manual page, "calling process" 
+	normally corresponds to "parent process".
+*/
 struct task_struct {
 #ifdef CONFIG_THREAD_INFO_IN_TASK
 	/*

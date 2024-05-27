@@ -2875,6 +2875,12 @@ pid_t user_mode_thread(int (*fn)(void *), void *arg, unsigned long flags)
 	return kernel_clone(&args);
 }
 
+/* 
+	This is the how the fork syscall is defined.
+	It follows the same routine as clone() syscall to
+	creates a task_struct, which is the only unit that considered
+	by CPU for scheduling
+*/
 #ifdef __ARCH_WANT_SYS_FORK
 SYSCALL_DEFINE0(fork)
 {

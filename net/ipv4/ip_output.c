@@ -89,6 +89,10 @@ ip_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
 	    unsigned int mtu,
 	    int (*output)(struct net *, struct sock *, struct sk_buff *));
 
+/* 
+The function calculated the checksum of the ip header
+Example of the calculation: https://en.wikipedia.org/wiki/Internet_checksum#Examples
+*/
 /* Generate a checksum for an outgoing IP datagram. */
 void ip_send_check(struct iphdr *iph)
 {
